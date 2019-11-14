@@ -1,28 +1,29 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  Image,
-} from 'react-native';
+import {StyleSheet} from 'react-native';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {compose, createStore, applyMiddleware} from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import Home from './components/pages/Home';
+import {Provider} from 'react-redux';
+import dataWatcher from './store/sagas';
+import rootReducer from './store/reducers';
 
-import Home from './components/pages/Home'
+const SagaMiddleWare = createSagaMiddleware();
+
+const store = createStore(
+  rootReducer,
+  compose(applyMiddleware(SagaMiddleWare)),
+);
+
+SagaMiddleWare.run(dataWatcher);
 
 const App: () => React$Node = () => {
   return (
     <>
-      <Home/>
+      <Provider store={store}>
+        <Home />
+      </Provider>
     </>
   );
 };
