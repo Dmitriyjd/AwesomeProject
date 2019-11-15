@@ -1,41 +1,65 @@
 import React, {PureComponent} from 'react';
-import {View, Text} from 'react-native';
+import {ScrollView} from 'react-native';
 import PropTypes from 'prop-types';
-import Tile from '../../common/tile';
+import SearchInput from '../../common/inputs/Search';
+import MediumTile from '../../common/tiles/MediumTile';
 
 class Home extends PureComponent {
+  state = {
+    searchParam: '',
+  };
   componentDidMount() {
     this.props.getProductsList();
   }
 
-  renderProductsArray = () => {
-    this.props.products.map(product => (
-      <Tile
-        id={product.id}
-        img={product.img}
-        name={product.name}
-        price={product.price}
-        size="large"
-      />
-    ));
+  renderProductsArray() {
+    if (this.state.searchParam === '') {
+      return this.props.products.map(product =>
+        this.renderProductTile(product),
+      );
+    } else {
+      const sortedArray = this.props.products.filter(product => {
+        product.name.includes(this.state.searchParam);
+      });
+      return sortedArray.map(product => this.renderProductTile(product));
+    }
+  }
+
+  handleChange = text => {
+    console.log(text);
   };
+
+  renderProductTile = product => (
+    <MediumTile
+      key={product.id}
+      id={product.id}
+      img={product.img}
+      name={product.name}
+      price={product.price}
+      size="large"
+    />
+  );
 
   render() {
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={{fontSize: 40}}>Hello world!</Text>
-        {this.renderProductsArray}
-        <Tile
-          size="large"
-          img="https://image.shutterstock.com/z/stock-photo-close-up-of-man-in-blank-t-shirt-140861086.jpg"
-        />
-      </View>
+      <>
+        <SearchInput onChange={this.handleChange} />
+        <ScrollView
+          contentContainerStyle={{
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+          }}>
+          {this.renderProductsArray()}
+        </ScrollView>
+      </>
     );
   }
 }
 
 Home.defaultProps = {
-  products: [{}],
+  products: [],
 };
 
 Home.propTypes = {

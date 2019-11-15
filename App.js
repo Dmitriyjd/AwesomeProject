@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, SafeAreaView} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 import {compose, createStore, applyMiddleware} from 'redux';
@@ -22,6 +22,7 @@ const App: () => React$Node = () => {
   return (
     <>
       <Provider store={store}>
+        <SafeAreaView style={styles.safeArea} />
         <Home />
       </Provider>
     </>
@@ -31,6 +32,9 @@ const App: () => React$Node = () => {
 const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: Colors.lighter,
+  },
+  safeArea: {
+    backgroundColor: '#ddd',
   },
   engine: {
     position: 'absolute',
