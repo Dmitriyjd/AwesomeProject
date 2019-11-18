@@ -13,7 +13,25 @@ const mapDispatchToProps = dispatch => ({
   getProductsList: () => dispatch(getItemsRequest()),
 });
 
-export default connect(
+/*export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Home);*/
+
+const connectedElement = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(Home);
+
+connectedElement.navigationOptions = () => ({
+  title: 'Home',
+  headerStyle: {
+    backgroundColor: '#f4511e',
+  },
+  headerTintColor: '#fff',
+  headerTitleStyle: {
+    fontWeight: 'bold',
+  },
+});
+
+export default connectedElement;

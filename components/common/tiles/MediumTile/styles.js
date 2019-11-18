@@ -7,6 +7,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     borderWidth: 0.25,
+    marginLeft: 4,
+    marginRight: 4,
     borderRadius: 7,
     backgroundColor: '#ffffff',
     minHeight: 100,

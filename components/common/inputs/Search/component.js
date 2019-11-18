@@ -1,21 +1,24 @@
 import React from 'react';
 import {View, TextInput} from 'react-native';
 import PropTypes from 'prop-types';
-import Icon from 'react-native-vector-icons/FontAwesome';
+/*import Icon from 'react-native-vector-icons/Entypo';*/
 import styles from './styles';
 
-const SearchInput = ({onChange}) => (
-  <View style={styles.container}>
-    <TextInput
-      onChangeText={text => onChange(text)}
-      onstyle={styles.input}
-      placeholder="Search an item..."
-    />
-  </View>
-);
+const SearchInput = ({onChangeText}) => {
+  return (
+    <View style={styles.container}>
+      {/*<Icon name="magnifying-glass" size={20} style={styles.icon} />*/}
+      <TextInput
+        onChangeText={text => onChangeText(text)}
+        style={styles.input}
+        placeholder="Search an item..."
+      />
+    </View>
+  );
+};
 
 SearchInput.propTypes = {
-  onChange: PropTypes.func.isRequired,
+  onChangeText: PropTypes.func.isRequired,
 };
 
 export default SearchInput;

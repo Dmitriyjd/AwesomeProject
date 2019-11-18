@@ -7,12 +7,16 @@ const styles = StyleSheet.create({
     shadowColor: '#a3a3a5',
     borderBottomWidth: 1,
     borderColor: '#a3a3a5',
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: 15,
+    paddingRight: 15,
     height: 50,
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 5,
+  },
+  icon: {
+    marginRight: 4,
+    color: '#a3a3a5',
   },
 });
 

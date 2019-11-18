@@ -7,11 +7,14 @@ import {
 } from '../../constants/actions/items';
 
 const getProductsSaga = function*() {
-  const responseData = yield axios.get(
-    'http://my-json-server.typicode.com/popovleonid/fake_catalog/products',
-  );
-  yield put({type: GET_ITEMS_SUCCESS, payload: responseData.data});
-  console.log('responseData', responseData.data);
+  try {
+    const responseData = yield axios.get(
+      'http://my-json-server.typicode.com/popovleonid/fake_catalog/products',
+    );
+    yield put({type: GET_ITEMS_SUCCESS, payload: responseData.data});
+  } catch (e) {
+    yield put({type: GET_ITEMS_FAILED});
+  }
 };
 
 const productSaga = function*() {

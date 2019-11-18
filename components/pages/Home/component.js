@@ -3,6 +3,7 @@ import {ScrollView} from 'react-native';
 import PropTypes from 'prop-types';
 import SearchInput from '../../common/inputs/Search';
 import MediumTile from '../../common/tiles/MediumTile';
+import styles from './styles.js';
 
 class Home extends PureComponent {
   state = {
@@ -12,21 +13,36 @@ class Home extends PureComponent {
     this.props.getProductsList();
   }
 
+  static navigationOptions = {
+    title: 'Home',
+    headerStyle: {
+      backgroundColor: '#f4511e',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  };
+
   renderProductsArray() {
-    if (this.state.searchParam === '') {
+    if (!this.state.searchParam.length) {
       return this.props.products.map(product =>
         this.renderProductTile(product),
       );
     } else {
-      const sortedArray = this.props.products.filter(product => {
-        product.name.includes(this.state.searchParam);
+      let sortedArray = this.props.products.filter(product => {
+        return product.name.includes(this.state.searchParam);
       });
       return sortedArray.map(product => this.renderProductTile(product));
     }
   }
 
   handleChange = text => {
-    console.log(text);
+    this.setState(() => {
+      return {
+        searchParam: text,
+      };
+    });
   };
 
   renderProductTile = product => (
@@ -36,21 +52,16 @@ class Home extends PureComponent {
       img={product.img}
       name={product.name}
       price={product.price}
-      size="large"
     />
   );
 
   render() {
+    console.log('Home state: ', this.state);
+    console.log('Navigation: ', this.props.navigation);
     return (
       <>
-        <SearchInput onChange={this.handleChange} />
-        <ScrollView
-          contentContainerStyle={{
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            justifyContent: 'space-around',
-            alignItems: 'center',
-          }}>
+        <SearchInput onChangeText={this.handleChange} />
+        <ScrollView contentContainerStyle={styles.container}>
           {this.renderProductsArray()}
         </ScrollView>
       </>
@@ -65,7 +76,12 @@ Home.defaultProps = {
 Home.propTypes = {
   getProductsList: PropTypes.func.isRequired,
   products: PropTypes.arrayOf(
-    PropTypes.shape({})
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      img: PropTypes.string,
+      name: PropTypes.string,
+      price: PropTypes.string,
+    }),
   ).isRequired,
 };
 
