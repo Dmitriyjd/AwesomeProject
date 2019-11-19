@@ -3,6 +3,7 @@ import {ScrollView} from 'react-native';
 import PropTypes from 'prop-types';
 import SearchInput from '../../common/inputs/Search';
 import MediumTile from '../../common/tiles/MediumTile';
+import Header from '../../Header';
 import styles from './styles.js';
 
 class Home extends PureComponent {
@@ -10,19 +11,8 @@ class Home extends PureComponent {
     searchParam: '',
   };
   componentDidMount() {
-    this.props.getProductsList();
+    this.props.getProductsListRequest();
   }
-
-  static navigationOptions = {
-    title: 'Home',
-    headerStyle: {
-      backgroundColor: '#f4511e',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
-  };
 
   renderProductsArray() {
     if (!this.state.searchParam.length) {
@@ -37,6 +27,13 @@ class Home extends PureComponent {
     }
   }
 
+  onChangeLocation = itemId => {
+    console.log('change location to Details screen');
+    this.props.navigation.navigate('Details', {
+      itemId,
+    });
+  };
+
   handleChange = text => {
     this.setState(() => {
       return {
@@ -45,21 +42,24 @@ class Home extends PureComponent {
     });
   };
 
-  renderProductTile = product => (
+  renderProductTile = ({id, img, name, price}) => (
     <MediumTile
-      key={product.id}
-      id={product.id}
-      img={product.img}
-      name={product.name}
-      price={product.price}
+      key={id}
+      id={id}
+      img={img}
+      name={name}
+      price={price}
+      onPress={this.onChangeLocation}
     />
   );
 
   render() {
     console.log('Home state: ', this.state);
-    console.log('Navigation: ', this.props.navigation);
+    console.log('Home navigation: ', this.props.navigation);
+    console.log('Location: ', this.props.navigation.state.routeName);
     return (
       <>
+        <Header text="Home" />
         <SearchInput onChangeText={this.handleChange} />
         <ScrollView contentContainerStyle={styles.container}>
           {this.renderProductsArray()}
@@ -74,7 +74,7 @@ Home.defaultProps = {
 };
 
 Home.propTypes = {
-  getProductsList: PropTypes.func.isRequired,
+  getProductsListRequest: PropTypes.func.isRequired,
   products: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,

@@ -2,12 +2,13 @@ import React from 'react';
 import {StyleSheet, SafeAreaView} from 'react-native';
 import {compose, createStore, applyMiddleware} from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import Home from './components/pages/Home';
 import {Provider} from 'react-redux';
-import dataWatcher from './store/sagas';
-import rootReducer from './store/reducers';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
+import dataWatcher from './store/sagas';
+import rootReducer from './store/reducers';
+import Home from './components/pages/Home';
+import Details from './components/pages/Details';
 
 const SagaMiddleWare = createSagaMiddleware();
 const store = createStore(
@@ -21,9 +22,12 @@ const AppNavigator = createStackNavigator(
     Home: {
       screen: Home,
     },
+    Details: {
+      screen: Details,
+    },
   },
   {
-    initialRouteName: 'Home',
+    headerMode: 'none',
   },
 );
 const AppContainer = createAppContainer(AppNavigator);
@@ -34,11 +38,7 @@ const App: () => React$Node = () => {
       <Provider store={store}>
         <SafeAreaView style={styles.safeArea} />
         {/*<Home />*/}
-        <AppContainer
-          style={{
-            backgroundColor: 'black',
-          }}
-        />
+        <AppContainer />
       </Provider>
     </>
   );

@@ -3,7 +3,8 @@ import {View, Text, Image} from 'react-native';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
-const Tile = ({id, img, name, price}) => {
+const Tile = ({id, img, name, price, navigation}) => {
+  console.log('Nav: ', navigation)
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={{uri: img}} />
@@ -11,6 +12,11 @@ const Tile = ({id, img, name, price}) => {
       <Text style={styles.subTitle}>{price} $</Text>
     </View>
   );
+};
+
+Tile.defaultProps = {
+  name: 'unknown',
+  price: 'unknown',
 };
 
 Tile.propTypes = {

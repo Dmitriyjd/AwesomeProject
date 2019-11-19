@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     shadowOffset: {width: 0, height: 3},
     shadowColor: '#a3a3a5',
+    borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: '#a3a3a5',
     paddingLeft: 15,

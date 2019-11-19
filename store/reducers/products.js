@@ -1,4 +1,7 @@
-import {GET_ITEMS_SUCCESS} from '../../constants/actions/items';
+import {
+  GET_ITEMS_SUCCESS,
+  GET_ITEM_SUCCESS,
+} from '../../constants/actions/items';
 
 const initialState = {products: []};
 function products(state = initialState, action) {
@@ -7,6 +10,11 @@ function products(state = initialState, action) {
       return {
         ...state,
         products: action.payload,
+      };
+    case GET_ITEM_SUCCESS:
+      return {
+        ...state,
+        selectedProductDetails: action.payload,
       };
     default:
       return state;

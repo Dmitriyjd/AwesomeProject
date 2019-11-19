@@ -4,6 +4,9 @@ import {
   GET_ITEMS_PENDING,
   GET_ITEMS_SUCCESS,
   GET_ITEMS_FAILED,
+  GET_ITEM_PENDING,
+  GET_ITEM_SUCCESS,
+  GET_ITEM_FAILED,
 } from '../../constants/actions/items';
 
 const getProductsSaga = function*() {
@@ -17,7 +20,21 @@ const getProductsSaga = function*() {
   }
 };
 
+const getProductDetailsSaga = function*(action) {
+  try {
+    const responseData = yield axios.get(
+      `http://my-json-server.typicode.com/popovleonid/fake_catalog/products${
+        action.payload.id
+      }`,
+    );
+    yield put({type: GET_ITEM_SUCCESS, payload: responseData.data});
+  } catch (e) {
+    yield put({type: GET_ITEM_FAILED});
+  }
+};
+
 const productSaga = function*() {
+  yield takeEvery(GET_ITEM_PENDING, getProductDetailsSaga)
   yield takeEvery(GET_ITEMS_PENDING, getProductsSaga);
 };
 
