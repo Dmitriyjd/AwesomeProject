@@ -1,6 +1,7 @@
 import {
   GET_ITEMS_SUCCESS,
   GET_ITEM_SUCCESS,
+  UNSELECT_ITEM_DETAILS,
 } from '../../constants/actions/items';
 
 const initialState = {products: []};
@@ -15,6 +16,11 @@ function products(state = initialState, action) {
       return {
         ...state,
         selectedProductDetails: action.payload,
+      };
+    case UNSELECT_ITEM_DETAILS:
+      return {
+        ...state,
+        selectedProductDetails: {},
       };
     default:
       return state;

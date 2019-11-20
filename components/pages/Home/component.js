@@ -54,9 +54,6 @@ class Home extends PureComponent {
   );
 
   render() {
-    console.log('Home state: ', this.state);
-    console.log('Home navigation: ', this.props.navigation);
-    console.log('Location: ', this.props.navigation.state.routeName);
     return (
       <>
         <Header text="Home" />

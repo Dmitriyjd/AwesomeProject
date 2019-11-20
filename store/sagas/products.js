@@ -23,8 +23,8 @@ const getProductsSaga = function*() {
 const getProductDetailsSaga = function*(action) {
   try {
     const responseData = yield axios.get(
-      `http://my-json-server.typicode.com/popovleonid/fake_catalog/products${
-        action.payload.id
+      `http://my-json-server.typicode.com/popovleonid/fake_catalog/products/${
+        action.payload
       }`,
     );
     yield put({type: GET_ITEM_SUCCESS, payload: responseData.data});
@@ -34,7 +34,7 @@ const getProductDetailsSaga = function*(action) {
 };
 
 const productSaga = function*() {
-  yield takeEvery(GET_ITEM_PENDING, getProductDetailsSaga)
+  yield takeEvery(GET_ITEM_PENDING, getProductDetailsSaga);
   yield takeEvery(GET_ITEMS_PENDING, getProductsSaga);
 };
 

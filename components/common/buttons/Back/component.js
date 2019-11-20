@@ -1,10 +1,11 @@
 import React from 'react';
 import {View, TouchableHighlight, Image} from 'react-native';
+import PropTypes from 'prop-types';
 import styles from './styles';
 
-const BackButton = props => {
+const BackButton = ({onPress}) => {
   return (
-    <TouchableHighlight style={props.style}>
+    <TouchableHighlight onPress={() => onPress()}>
       <View>
         <Image
           style={styles.image}
@@ -16,6 +17,10 @@ const BackButton = props => {
       </View>
     </TouchableHighlight>
   );
+};
+
+BackButton.propTypes = {
+  onPress: PropTypes.func,
 };
 
 export default BackButton;

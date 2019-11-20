@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import styles from './styles';
 
 const Tile = ({id, img, name, price, onPress}) => {
-  console.log('onPress: ', typeof onPress);
   return (
     <TouchableHighlight onPress={() => onPress(id)}>
       <View style={styles.container}>

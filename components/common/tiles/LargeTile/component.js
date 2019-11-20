@@ -4,12 +4,13 @@ import PropTypes from 'prop-types';
 import styles from './styles';
 
 const Tile = ({id, img, name, price, navigation}) => {
-  console.log('Nav: ', navigation)
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={{uri: img}} />
-      <Text style={styles.title}>{name}</Text>
-      <Text style={styles.subTitle}>{price} $</Text>
+      <View style={styles.contentContainer}>
+        <Text style={styles.title}>{name}</Text>
+        <Text style={styles.subTitle}>{price} $</Text>
+      </View>
     </View>
   );
 };

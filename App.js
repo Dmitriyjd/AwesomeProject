@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, SafeAreaView} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import {compose, createStore, applyMiddleware} from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import {Provider} from 'react-redux';
@@ -9,6 +9,7 @@ import dataWatcher from './store/sagas';
 import rootReducer from './store/reducers';
 import Home from './components/pages/Home';
 import Details from './components/pages/Details';
+import styles from './App.styles';
 
 const SagaMiddleWare = createSagaMiddleware();
 const store = createStore(
@@ -35,19 +36,12 @@ const AppContainer = createAppContainer(AppNavigator);
 const App: () => React$Node = () => {
   return (
     <>
-      <Provider store={store}>
+      <Provider store={store} style={styles.app}>
         <SafeAreaView style={styles.safeArea} />
-        {/*<Home />*/}
         <AppContainer />
       </Provider>
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  safeArea: {
-    backgroundColor: '#ddd',
-  },
-});
 
 export default App;

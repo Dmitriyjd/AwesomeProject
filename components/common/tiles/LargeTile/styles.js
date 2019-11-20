@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     minHeight: 100,
     padding: 3,
     paddingBottom: 10,
-    maxHeight: height - 110,
+    height: 'auto',
     width: width - 20,
     marginBottom: 10,
     shadowOffset: {width: 0, height: 1},
@@ -25,8 +25,17 @@ export const styles = StyleSheet.create({
     height: 380,
     borderTopLeftRadius: 7,
     borderTopRightRadius: 7,
-    resizeMode: 'stretch',
+    resizeMode: 'cover',
     marginBottom: 20,
+  },
+  contentContainer: {
+    width: width - 50,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 5,
+    paddingRight: 5,
+    alignItems: 'center',
+    minHeight: 50,
   },
   title: {
     fontSize: 25,
@@ -35,7 +44,9 @@ export const styles = StyleSheet.create({
   },
   subTitle: {
     fontSize: 18,
-    color: '#606367',
+    color: '#ffffff',
+    backgroundColor: '#75787c',
+    padding: 5,
   },
 });
 
