@@ -14,24 +14,16 @@ class Home extends PureComponent {
     this.props.getProductsListRequest();
   }
 
-  renderProductsArray() {
-    if (!this.state.searchParam.length) {
-      return this.props.products.map(product =>
-        this.renderProductTile(product),
-      );
-    } else {
-      let sortedArray = this.props.products.filter(product => {
-        return product.name.includes(this.state.searchParam);
-      });
-      return sortedArray.map(product => this.renderProductTile(product));
-    }
-  }
-
   onChangeLocation = itemId => {
     console.log('change location to Details screen');
     this.props.navigation.navigate('Details', {
       itemId,
     });
+  };
+
+  onChangeLocationToCart = () => {
+    console.log('change location to Cart screen');
+    this.props.navigation.navigate('Cart');
   };
 
   handleChange = text => {
@@ -53,10 +45,27 @@ class Home extends PureComponent {
     />
   );
 
+  renderProductsArray() {
+    if (!this.state.searchParam.length) {
+      return this.props.products.map(product =>
+        this.renderProductTile(product),
+      );
+    } else {
+      let sortedArray = this.props.products.filter(product => {
+        return product.name.includes(this.state.searchParam);
+      });
+      return sortedArray.map(product => this.renderProductTile(product));
+    }
+  }
+
   render() {
     return (
       <>
-        <Header text="Home" />
+        <Header
+          text="Home"
+          cartButton={true}
+          onCartButtonPress={this.onChangeLocationToCart}
+        />
         <SearchInput onChangeText={this.handleChange} />
         <ScrollView contentContainerStyle={styles.container}>
           {this.renderProductsArray()}

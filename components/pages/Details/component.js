@@ -13,6 +13,11 @@ class DetailsPage extends PureComponent {
     );
   }
 
+  onChangeLocationToCart = () => {
+    console.log('change location to Cart screen');
+    this.props.navigation.navigate('Cart');
+  };
+
   goBack = () => {
     this.props.unselectItemDetails();
     this.props.navigation.goBack();
@@ -26,6 +31,8 @@ class DetailsPage extends PureComponent {
           text="Product details"
           backButton={true}
           onBackButtonPress={this.goBack}
+          cartButton={true}
+          onCartButtonPress={this.onChangeLocationToCart}
         />
         <ScrollView contentContainerStyle={styles.content}>
           <LargeTile name={name} img={img} price={price} />

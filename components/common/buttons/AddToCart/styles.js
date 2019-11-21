@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     minHeight: 40,
     maxHeight: 50,
     width: width - 20,
-    backgroundColor: '#e1e1e1',
+    backgroundColor: 'rgba(204,204,204,0.24)',
     borderWidth: 0.25,
     borderRadius: 7,
     shadowOffset: {width: 0, height: 1},

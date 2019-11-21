@@ -9,6 +9,7 @@ import dataWatcher from './store/sagas';
 import rootReducer from './store/reducers';
 import Home from './components/pages/Home';
 import Details from './components/pages/Details';
+import Cart from './components/pages/Cart';
 import styles from './App.styles';
 
 const SagaMiddleWare = createSagaMiddleware();
@@ -25,6 +26,9 @@ const AppNavigator = createStackNavigator(
     },
     Details: {
       screen: Details,
+    },
+    Cart: {
+      screen: Cart,
     },
   },
   {
