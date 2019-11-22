@@ -1,69 +1,51 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  Image,
-} from 'react-native';
+import {SafeAreaView} from 'react-native';
+import {compose, createStore, applyMiddleware} from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import {Provider} from 'react-redux';
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
+import dataWatcher from './store/sagas';
+import rootReducer from './store/reducers';
+import Home from './components/pages/Home';
+import Details from './components/pages/Details';
+import Cart from './components/pages/Cart';
+import styles from './App.styles';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const SagaMiddleWare = createSagaMiddleware();
+const store = createStore(
+  rootReducer,
+  compose(applyMiddleware(SagaMiddleWare)),
+);
+SagaMiddleWare.run(dataWatcher);
 
-import Home from './components/pages/Home'
+const AppNavigator = createStackNavigator(
+  {
+    Home: {
+      screen: Home,
+    },
+    Details: {
+      screen: Details,
+    },
+    Cart: {
+      screen: Cart,
+    },
+  },
+  {
+    headerMode: 'none',
+  },
+);
+const AppContainer = createAppContainer(AppNavigator);
 
 const App: () => React$Node = () => {
   return (
     <>
-      <Home/>
+      <Provider store={store} style={styles.app}>
+        <SafeAreaView style={styles.safeArea} />
+        <AppContainer />
+      </Provider>
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
 
 export default App;
