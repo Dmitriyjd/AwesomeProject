@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: 200,
   },
   image: {
     minWidth: 80,

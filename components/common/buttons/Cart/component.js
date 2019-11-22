@@ -6,7 +6,7 @@ import styles from './styles';
 const CartButton = ({amount, onPress}) => {
   return (
     <TouchableHighlight onPress={() => onPress()} style={styles.container}>
-      <View style={{flex: 1}}>
+      <View style={styles.contentContainer}>
         <Image
           source={{
             uri:

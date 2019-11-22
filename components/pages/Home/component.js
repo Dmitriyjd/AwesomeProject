@@ -15,14 +15,12 @@ class Home extends PureComponent {
   }
 
   onChangeLocation = itemId => {
-    console.log('change location to Details screen');
     this.props.navigation.navigate('Details', {
       itemId,
     });
   };
 
   onChangeLocationToCart = () => {
-    console.log('change location to Cart screen');
     this.props.navigation.navigate('Cart');
   };
 

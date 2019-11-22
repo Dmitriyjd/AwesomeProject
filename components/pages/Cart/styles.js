@@ -5,11 +5,12 @@ const {height} = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     minHeight: height,
+    height: 'auto',
   },
   contentContainer: {
-    flex: 1,
     flexDirection: 'column',
-    paddingHorizontal: 5,
+    paddingTop: 7,
+    height: 'auto',
   },
 });
 

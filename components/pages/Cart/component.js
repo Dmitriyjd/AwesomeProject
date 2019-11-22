@@ -11,18 +11,33 @@ class Cart extends PureComponent {
     this.props.navigation.goBack();
   };
 
-  renderItemsArray = this.props.cartItems.map(
-    ({id, image, name, price, amount}) => (
-      <SmallTile
-        key={id}
-        id={id}
-        image={image}
-        title={name}
-        subTitle={price}
-        amount={amount}
-      />
-    ),
-  );
+  onIncreaseItemsAmount = id => {
+    this.props.increaseAmountOfCurrentItemInCart(id);
+  };
+
+  onDecreaseItemsAmount = (id, amount) => {
+    if (amount < 2) {
+      this.props.removeItemFromCart(id);
+    } else {
+      this.props.decreaseAmountOfCurrentItemInCart(id);
+    }
+  };
+
+  renderItemsArray = () =>
+    this.props.cartItems.map(({id, img, name, price, amount}) => {
+      return (
+        <SmallTile
+          key={id + amount}
+          id={id}
+          img={img}
+          title={name}
+          subTitle={price}
+          amount={amount}
+          onIncreaseAmount={this.onIncreaseItemsAmount}
+          onDecreaseAmount={this.onDecreaseItemsAmount}
+        />
+      );
+    });
 
   render() {
     return (
@@ -37,7 +52,7 @@ class Cart extends PureComponent {
           {this.props.cartItems.length === 0 ? (
             <EmptyCart />
           ) : (
-            this.renderItemsArray
+            this.renderItemsArray()
           )}
         </ScrollView>
       </View>
@@ -53,12 +68,16 @@ Cart.propTypes = {
   cartItems: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
+      img: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       price: PropTypes.string.isRequired,
       amount: PropTypes.number.isRequired,
     }),
   ),
+  navigation: PropTypes.shape({}).isRequired,
+  increaseAmountOfCurrentItemInCart: PropTypes.func,
+  decreaseAmountOfCurrentItemInCart: PropTypes.func,
+  removeItemFromCart: PropTypes.func,
 };
 
 export default Cart;

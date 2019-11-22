@@ -9,6 +9,9 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     position: 'relative',
   },
+  contentContainer: {
+    flex: 1,
+  },
   image: {
     minWidth: 25,
     minHeight: 25,

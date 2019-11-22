@@ -3,10 +3,9 @@ import {TouchableHighlight, View, Image, Text} from 'react-native';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
-const AddToCartButton = ({text}) => {
-  console.log('Text: ', text);
+const AddToCartButton = ({text, onPress}) => {
   return (
-    <TouchableHighlight style={styles.container}>
+    <TouchableHighlight onPress={() => onPress()} style={styles.container}>
       <View style={styles.content}>
         <Image
           source={{
@@ -27,6 +26,7 @@ AddToCartButton.defaultProps = {
 
 AddToCartButton.propTypes = {
   text: PropTypes.string,
+  onPress: PropTypes.func,
 };
 
 export default AddToCartButton;

@@ -14,13 +14,16 @@ class DetailsPage extends PureComponent {
   }
 
   onChangeLocationToCart = () => {
-    console.log('change location to Cart screen');
     this.props.navigation.navigate('Cart');
   };
 
   goBack = () => {
     this.props.unselectItemDetails();
     this.props.navigation.goBack();
+  };
+
+  onAddItemToCart = () => {
+    this.props.addItemToCart(this.props.productDetails);
   };
 
   render() {
@@ -36,7 +39,7 @@ class DetailsPage extends PureComponent {
         />
         <ScrollView contentContainerStyle={styles.content}>
           <LargeTile name={name} img={img} price={price} />
-          <AddToCartButton text="Add to cart" />
+          <AddToCartButton onPress={this.onAddItemToCart} text="Add to cart" />
         </ScrollView>
       </View>
     );
@@ -59,6 +62,7 @@ DetailsPage.propTypes = {
   }),
   getProductDetailsRequest: PropTypes.func.isRequired,
   unselectItemDetails: PropTypes.func,
+  addItemToCart: PropTypes.func,
 };
 
 export default DetailsPage;
